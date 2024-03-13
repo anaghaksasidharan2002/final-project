@@ -1,0 +1,67 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation Chatbot</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="chat-container">
+        <h1>Krishi Mitra Chatbot</h1> <!-- Custom heading -->
+        <div id="chat-log"></div>
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button id="send-btn">Send</button>
+    </div>
+
+    <script>
+        const chatLog = document.getElementById('chat-log');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        sendBtn.addEventListener('click', () => {
+            sendMessage();
+        });
+
+        userInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function addMessageToChat(sender, message, alignRight) {
+            const messageElement = document.createElement('div');
+            messageElement.textContent = `${sender}: ${message}`;
+            messageElement.classList.add(alignRight ? 'chat-message-right' : 'chat-message-left');
+            chatLog.appendChild(messageElement);
+        }
+
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message !== '') {
+                addMessageToChat('User', message, false);
+                userInput.value = '';
+
+                const data = new FormData();
+                data.append('message', message);
+
+                fetch('/chatbot', {
+                    method: 'POST',
+                    body: data
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const botResponse = data.response;
+                    addMessageToChat('Chatbot', botResponse, true);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    addMessageToChat('Chatbot', 'Sorry, there was an error processing your request.', true);
+                });
+            }
+        }
+    </script>
+</body>
+</html>

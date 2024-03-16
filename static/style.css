@@ -1,0 +1,174 @@
+/* Reset some default styles for a cleaner look */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0; /* Light gray background */
+}
+
+/* Ensure the chat container is centered and responsive */
+#chat-container {
+  width: 80%; /* Adjust this value to make the chat window wider or narrower */
+  max-width: 1200px; /* Set a maximum width to ensure it doesn't get too wide on large screens */
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; /* Add rounded corners */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center children horizontally */
+}
+
+/* Styles for the theme selector */
+#theme-selector {
+  width: 100%; /* Make the theme selector span the full width of the chat container */
+  display: flex;
+  justify-content: center; /* Center the theme selector */
+  margin-bottom: 20px; /* Add some space below the theme selector */
+}
+
+
+
+/* Base styles for the chat log */
+#chat-log {
+  height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px; /* Add rounded corners */
+  width: 100%; /* Ensure the chat log takes up the full width of the chat container */
+}
+
+/* Styles for user messages */
+.user {
+  align-self: flex-start;
+  background-color: #e0f7fa; /* Light blue */
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+/* Styles for chatbot messages */
+.chatbot {
+  align-self: flex-end;
+  background-color: #f8bbd0; /* Light pink */
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+/* Adjustments for the input field */
+#user-input {
+  width: 70%; /* Adjust the width of the input field */
+  padding: 10px;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  margin-bottom: 10px; /* Add some space below the input field */
+  border-radius: 10px; /* Add rounded corners */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  #chat-container {
+      padding: 10px;
+      max-width: 90%; /* Adjust width for mobile */
+  }
+
+  #user-input {
+      width: 100%; /* Ensure the input field is responsive on mobile */
+  }
+
+  #theme-select {
+      width: 100%; /* Make the theme selector span the full width on mobile */
+  }
+}
+
+/* Light theme styles */
+.light-theme {
+  background-color: #f0f0f0;
+}
+
+.light-theme #chat-container {
+  background-color: #ffffff;
+  color: #333;
+}
+
+.light-theme .user {
+  background-color: #e0f7fa;
+}
+
+.light-theme .chatbot {
+  background-color: #f8bbd0;
+}
+
+/* Dark theme styles */
+.dark-theme {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark-theme #chat-container {
+  background-color: #444;
+  color: #fff;
+}
+
+.dark-theme .user {
+  background-color: #007bff;
+}
+
+.dark-theme .chatbot {
+  background-color: #ff6347;
+}
+/* Adjustments for the send button */
+#send-btn {
+  padding: 10px 20px; /* Adjust padding for better appearance */
+  border: none; /* Remove default button border */
+  border-radius: 5px; /* Add rounded corners */
+  background-color: #007bff; /* Set a background color */
+  color: white; /* Set text color */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  margin-top: 10px; /* Add some space above the send button */
+  margin-left: 10px; /* Add some space to the left of the send button */
+}
+
+#send-btn:hover {
+  background-color: #0056b3; /* Darken background color on hover */
+}
+
+#send-btn:active {
+  background-color: #004085; /* Darken background color further on active */
+}
+
+/* Styles for the theme selector */
+#theme-selector {
+  width: 100%; /* Make the theme selector span the full width of the chat container */
+  display: flex;
+  justify-content: center; /* Center the theme selector */
+  margin-bottom: 20px; /* Add some space below the theme selector */
+}
+
+#theme-select {
+  width: 50%; /* Adjust the width of the theme selector to match the width of the message typing button and send button */
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #383333;
+  cursor: pointer;
+  margin-right: 10px; /* Add some space to the right of the theme selector */
+}
+
+/* Adjustments for the input field */
+#user-input {
+  width: 70%; /* Adjust the width of the input field */
+  padding: 10px;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  margin-bottom: 10px; /* Add some space below the input field */
+  border-radius: 10px; /* Add rounded corners */
+  margin-left: 10px; /* Add some space to the left of the input field */
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation Chatbot</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="chat-container">
+        <h1>Krishi Mitra Chatbot</h1>
+        <div id="theme-switcher">
+            <button id="light-theme">Light</button>
+            <button id="dark-theme">Dark</button>
+        </div>
+        <div id="chat-log"></div>
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button id="send-btn">Send</button>
+    </div>
+
+    <script>
+        // script.js
+document.addEventListener('DOMContentLoaded', () => {
+    const chatLog = document.getElementById('chat-log');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+    const lightThemeBtn = document.getElementById('light-theme');
+    const darkThemeBtn = document.getElementById('dark-theme');
+
+    // Load chat history from local storage
+    const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    chatHistory.forEach(message => addMessageToChat(message.sender, message.text));
+
+    sendBtn.addEventListener('click', () => {
+        sendMessage();
+    });
+
+    userInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+    function addMessageToChat(sender, message) {
+        const messageElement = document.createElement('div');
+        messageElement.textContent = `${sender}: ${message}`;
+        chatLog.appendChild(messageElement);
+        // Save chat history to local storage
+        localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+    }
+    function addMessageToChat(sender, message) {
+        const messageElement = document.createElement('div');
+        messageElement.textContent = message;
+        messageElement.classList.add(sender.toLowerCase()); // Add 'user' or 'chatbot' class
+        chatLog.appendChild(messageElement);
+        // Save chat history to local storage
+        localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+    }
+    
+    function sendMessage() {
+        const message = userInput.value.trim();
+        if (message !== '') {
+            addMessageToChat('User', message);
+            userInput.value = '';
+
+            const data = new FormData();
+            data.append('message', message);
+
+            fetch('/chatbot', {
+                method: 'POST',
+                body: data
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const botResponse = data.response;
+                addMessageToChat('Chatbot', botResponse);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                addMessageToChat('Chatbot', 'Sorry, there was an error processing your request.');
+            });
+        }
+    }
+
+    // Theme switching
+    lightThemeBtn.addEventListener('click', () => {
+        document.body.classList.remove('dark-theme');
+        document.getElementById('chat-container').classList.remove('dark-theme');
+        lightThemeBtn.classList.add('active');
+        darkThemeBtn.classList.remove('active');
+    });
+
+    darkThemeBtn.addEventListener('click', () => {
+        document.body.classList.add('dark-theme');
+        document.getElementById('chat-container').classList.add('dark-theme');
+        darkThemeBtn.classList.add('active');
+        lightThemeBtn.classList.remove('active');
+    });
+});
+
+    </script>
+</body>
+</html>
